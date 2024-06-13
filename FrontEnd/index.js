@@ -1,44 +1,87 @@
-document.addEventListener('DOMContentLoaded', () => { // Ajoute un écouteur d'événement pour exécuter le code lorsque le DOM est entièrement chargé
-    async function fetchAppartements() { // Fonction asynchrone pour récupérer les données des appartements
-      try {
-        const response = await fetch('http://localhost:5678/api/works'); // Effectue une requête GET vers /api/appartements
-        if (!response.ok) { // Vérifie si la réponse est correcte (status 200-299)
-          throw new Error(`HTTP error! Status: ${response.status}`); // Lance une erreur en cas de réponse non correcte
+document.addEventListener('DOMContentLoaded', () => {
+    // Fonction asynchrone pour récupérer les données des appartements
+    async function fetchAppartements() {
+        try {
+            // Effectue une requête GET vers l'API pour obtenir les données
+            const response = await fetch('http://localhost:5678/api/works');
+            if (!response.ok) {
+                // Lance une erreur en cas de réponse non correcte
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            // Convertit la réponse en JSON
+            const data = await response.json();
+            console.log('Données récupérées:', data); // Affiche les données dans la console pour vérification
+            // Appelle la fonction pour afficher les appartements
+            displayAppartements(data);
+        } catch (error) {
+            // Gère les erreurs éventuelles lors de la requête
+            console.error('Erreur lors de la récupération des données:', error);
         }
-        const data = await response.json(); 
-        console.log('Données récupérées:', data); // Affiche les données dans la console pour vérification
-        displayAppartements(data); // Appelle la fonction pour afficher les appartements
-      } catch (error) { // Gère les erreurs éventuelles lors de la requête
-        console.error('Erreur lors de la récupération des données:', error); // Affiche l'erreur dans la console
-      }
     }
-  
-    function displayAppartements(appartements) { // Fonction pour afficher les appartements
-      const galerie = document.getElementById('listeFilm'); // Sélectionne l'élément avec l'id listeFilm
-      if (!galerie) { // Vérifie si l'élément existe
-        console.error('Élément galerie non trouvé'); // Affiche un message d'erreur si l'élément n'est pas trouvé
-        return; // Sort de la fonction
-      }
-      galerie.innerHTML = ''; // Supprime le contenu HTML existant dans l'élément galerie
-  
-      appartements.forEach(appartement => { // Parcourt les données
-        const div = document.createElement('figure'); // Crée un nouvel élément figure
-        div.className = 'appartement'; // Assigne une classe à l'élément figure pour le css 
-  
-        const title = document.createElement('figcaption'); // Crée un nouvel élément figcaption pour le titre
-        title.textContent = appartement.title; // Définit le texte du titre avec le titre de l'appartement
-  
-        const img = document.createElement('img'); // Crée un nouvel élément img pour l'image
-        img.src = appartement.imageUrl; // Définit la source de l'image avec l'URL de l'image de l'appartement
-        img.alt = appartement.title; // Définit le texte alternatif de l'image avec le titre de l'appartement
-  
-       
-        div.appendChild(img); 
-        div.appendChild(title); // Ajoute le titre à l'élément div
-        galerie.appendChild(div); 
-      });
+
+    // Fonction pour afficher les appartements
+    function displayAppartements(appartements) {
+        // Sélectionne l'élément avec l'id listeFilm
+        const galerie = document.getElementById('listeFilm');
+        if (!galerie) {
+            // Affiche un message d'erreur si l'élément n'est pas trouvé
+            console.error('Élément galerie non trouvé');
+            return; // Sort de la fonction
+        }
+        // Supprime le contenu HTML existant dans l'élément galerie
+        galerie.innerHTML = '';
+
+        // Parcourt les données des appartements
+        appartements.forEach(appartement => {
+            // Crée un nouvel élément figure pour chaque appartement
+            const div = document.createElement('figure');
+            div.className = 'appartement'; // Assigne une classe à l'élément figure pour le CSS
+            // Utilise la propriété category.name pour les catégories et les met en minuscules
+            div.dataset.category = appartement.category.name.toLowerCase(); 
+
+            // Crée un nouvel élément figcaption pour le titre
+            const title = document.createElement('figcaption');
+            title.textContent = appartement.title; // Définit le texte du titre avec le titre de l'appartement
+
+            // Crée un nouvel élément img pour l'image
+            const img = document.createElement('img');
+            img.src = appartement.imageUrl; // Définit la source de l'image avec l'URL de l'image de l'appartement
+            img.alt = appartement.title; // Définit le texte alternatif de l'image avec le titre de l'appartement
+
+            // Ajoute l'image et le titre à l'élément figure
+            div.appendChild(img);
+            div.appendChild(title);
+            // Ajoute l'élément figure à la galerie
+            galerie.appendChild(div);
+        });
     }
-  
-    fetchAppartements(); // Appelle la fonction pour récupérer et afficher les appartements
-  });
-  
+
+    // Fonction pour filtrer les appartements en fonction de la catégorie
+    function filterAppartements(category) {
+        // Sélectionne tous les éléments avec la classe appartement dans l'élément listeFilm
+        const allAppartements = document.querySelectorAll('#listeFilm .appartement');
+        // Parcourt tous les appartements et ajuste leur affichage en fonction de la catégorie
+        allAppartements.forEach(appartement => {
+            if (category === 'all' || appartement.dataset.category === category) {
+                // Affiche l'appartement si la catégorie correspond ou si "Tous" est sélectionné
+                appartement.style.display = 'block';
+            } else {
+                // Cache l'appartement si la catégorie ne correspond pas
+                appartement.style.display = 'none';
+            }
+        });
+    }
+
+    // Ajoute un écouteur d'événements pour gérer les clics sur les boutons de filtre
+    document.getElementById('filters').addEventListener('click', (event) => {
+        if (event.target.classList.contains('filter-btn')) {
+            // Récupère la catégorie à partir de l'attribut data-category du bouton cliqué et la met en minuscules
+            const category = event.target.dataset.category.toLowerCase();
+            // Appelle la fonction pour filtrer les appartements en fonction de la catégorie
+            filterAppartements(category);
+        }
+    });
+
+    // Appelle la fonction pour récupérer et afficher les appartements au chargement de la page
+    fetchAppartements();
+});
