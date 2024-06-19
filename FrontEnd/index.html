@@ -8,9 +8,14 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
 	<meta name="description" content="">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
 	<link rel="stylesheet" href="./assets/style.css">
 </head>
 <body>
+	 <!-- Barre de mode édition -->
+	 <div class="edit-mode-bar">
+        <button id="manage-works-btn" class="fa-regular fa-pen-to-square" > Mode Edition</button>
+		</div>
 <header>
 	<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
 	<nav>
@@ -23,6 +28,8 @@
 	</nav>
 </header>
 <main>
+
+
 	<section id="introduction">
 		<figure>
 			<img src="./assets/images/sophie-bluel.png" alt="">
@@ -34,8 +41,57 @@
 			<p>En cas de besoin, une équipe pluridisciplinaire peut-être constituée : architecte DPLG, décorateur(trice)</p>
 		</article>
 	</section>
+	<section>
+        <h2>Mes Travaux</h2>
+        <button id="manage-works-btn">Gérer mes travaux</button>
+    </section>
+
+
 	<section id="portfolio">
 		<h2>Mes Projets</h2>
+		 <!-- Modale de gestion des travaux -->
+		 <div id="modal" class="modal">
+			<div class="modal-content">
+				<span class="close-btn">&times;</span>
+				<div id="gallery-view">
+					<h2>Galerie photo</h2>
+					<!-- Contenu de la galerie photo -->
+					<div class="gallery-content">
+						<!-- Images et contenu de la galerie -->
+						<p>Contenu de la galerie photo...</p>
+					</div>
+					<button id="add-photo-btn">Ajouter une photo</button>
+				</div>
+				<div id="add-photo-view">
+					<div class="modal-header">
+						<button id="back-to-gallery-btn"class="fa-solid fa-arrow-left"></button>
+					<p>Ajout photo</p>
+					</div>
+					<form id="add-photo-form">
+						<div class="upload-section">
+							<label for="photo-file" class="upload-label">
+								<i class="fa-regular fa-image"></i>
+								<span>+ Ajouter photo</span>
+								<small>jpg, png : 4mo max</small>
+							</label>
+							<input type="file" id="photo-file" name="file" accept="image/*" required>
+						</div>
+						<label for="photo-title">Titre de la photo:</label>
+						<input type="text" id="photo-title" name="title" required>
+						
+						<label for="photo-category">Catégorie:</label>
+						<select id="photo-category" name="category" required>
+							<option value="" disabled selected>Choisir une catégorie</option>
+							<option value="cat1">Objets</option>
+							<option value="cat2">Appartements</option>
+							<option value="cat1">Hôtel & Restaurants</option>
+						</select>
+						
+						<button type="submit" class="submit-btn">Valider</button>
+					</form>
+				</div>
+			</div>
+		</div>
 
 		<div id="filters">
 			<button class="filter-btn" data-category="all">Tous</button>
@@ -71,5 +127,6 @@
 	</nav>
 </footer>
 <script src="index.js"></script>
+<script src="modal.js"></script>
 </body>
 </html>
