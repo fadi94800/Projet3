@@ -84,4 +84,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Appelle la fonction pour récupérer et afficher les appartements au chargement de la page
     fetchAppartements();
+
+    // Code pour gérer l'authentification et le mode édition
+    const authLink = document.getElementById('auth-link');
+    const editModeBar = document.getElementById('edit-mode-bar');
+    const filters = document.getElementById('filters');
+    const authToken = localStorage.getItem('authToken');
+
+    if (authToken) {
+        authLink.innerHTML = '<a href="#" id="logout-link">logout</a>';
+        editModeBar.style.display = 'block';
+        filters.style.display = 'none';
+
+        document.getElementById('logout-link').addEventListener('click', (e) => {
+            e.preventDefault();
+            localStorage.removeItem('authToken');
+            window.location.href = 'index.html';
+        });
+    } else {
+        filters.style.display = 'block';
+    }
 });
