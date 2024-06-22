@@ -102,6 +102,6 @@ document.addEventListener('DOMContentLoaded', () => {
             window.location.href = 'index.html';
         });
     } else {
-        filters.style.display = 'block';
+        filters.style.display = 'flex';
     }
 });
