@@ -12,16 +12,15 @@
     <link rel="stylesheet" href="./assets/style.css">
 </head>
 <body>
-    <!-- Barre de mode édition -->
-    <div class="edit-mode-bar" id="edit-mode-bar" style="display: none;">
-        <button id="manage-works-btn" class="fa-regular fa-pen-to-square"> Mode Edition</button>
+	<div class="edit-mode-bar" id="edit-mode-bar">
+        <button id="manage-works-btn"><i class="fa-regular fa-pen-to-square"></i> Mode édition</button>
     </div>
     <header>
         <h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
         <nav>
             <ul>
                 <li>projets</li>
-                <li><a href="#contact">Contact </a></li>
+                <li><a href="#contact">Contact</a></li>
                 <li id="auth-link"><a href="login.html">login</a></li>
                 <li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
             </ul>
@@ -39,19 +38,21 @@
                 <p>En cas de besoin, une équipe pluridisciplinaire peut-être constituée : architecte DPLG, décorateur(trice)</p>
             </article>
         </section>
-        <section id="portfolio">
+
             <h2>Mes Projets</h2>
+			<button id="manage-works-btn"><i class="fa-regular fa-pen-to-square"></i> Modifier</button>
             <!-- Modale de gestion des travaux -->
             <div id="modal" class="modal">
                 <div class="modal-content">
                     <span class="close-btn">&times;</span>
                     <div id="gallery-view">
-                        <h2>Galerie photo</h2>
+                        <h3>Galerie photo</h3>
                         <!-- Contenu de la galerie photo -->
                         <div class="gallery-content">
                             <!-- Images et contenu de la galerie -->
-                            <p>Contenu de la galerie photo...</p>
+
                         </div>
+						<div class="divider"></div>
                         <button id="add-photo-btn">Ajouter une photo</button>
                     </div>
                     <div id="add-photo-view">
@@ -82,7 +83,7 @@
                     </div>
                 </div>
             </div>
-            <div id="filters" style="display: none;">
+            <div id="filters">
                 <button class="filter-btn" data-category="all">Tous</button>
                 <button class="filter-btn" data-category="Objets">Objets</button>
                 <button class="filter-btn" data-category="Appartements">Appartements</button>

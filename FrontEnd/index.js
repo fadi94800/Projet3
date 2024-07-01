@@ -13,6 +13,8 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log('Données récupérées:', data); // Affiche les données dans la console pour vérification
             // Appelle la fonction pour afficher les appartements
             displayAppartements(data);
+            // Appelle la fonction pour afficher toutes les photos dans la modale
+            displayAllPhotosInModal(data);
         } catch (error) {
             // Gère les erreurs éventuelles lors de la requête
             console.error('Erreur lors de la récupération des données:', error);
@@ -48,11 +50,51 @@ document.addEventListener('DOMContentLoaded', () => {
             img.src = appartement.imageUrl; // Définit la source de l'image avec l'URL de l'image de l'appartement
             img.alt = appartement.title; // Définit le texte alternatif de l'image avec le titre de l'appartement
 
-            // Ajoute l'image et le titre à l'élément figure
+            // Crée un nouvel élément pour l'icône de suppression
+            const deleteIcon = document.createElement('div');
+            deleteIcon.className = 'delete-icon';
+      
+            deleteIcon.addEventListener('click', () => {
+                deleteAppartement(appartement.id);
+            });
+
+            // Ajoute l'image, le titre et l'icône de suppression à l'élément figure
             div.appendChild(img);
             div.appendChild(title);
+            div.appendChild(deleteIcon);
             // Ajoute l'élément figure à la galerie
             galerie.appendChild(div);
+        });
+    }
+
+    // Fonction pour afficher toutes les photos dans la modale
+    function displayAllPhotosInModal(appartements) {
+        const galleryContent = document.querySelector('.gallery-content');
+        if (!galleryContent) {
+            console.error('Élément gallery-content non trouvé');
+            return;
+        }
+        galleryContent.innerHTML = '';
+
+        appartements.forEach(appartement => {
+            const div = document.createElement('figure');
+            div.className = 'appartement-modal';
+
+            const img = document.createElement('img');
+            img.src = appartement.imageUrl;
+            img.alt = appartement.title;
+
+            // Crée un nouvel élément pour l'icône de suppression
+            const deleteIcon = document.createElement('div');
+            deleteIcon.className = 'delete-icon';
+            deleteIcon.innerHTML = '<i class="fa-regular fa-trash-can"></i>';
+            deleteIcon.addEventListener('click', () => {
+                deleteAppartement(appartement.id);
+            });
+
+            div.appendChild(img);
+            div.appendChild(deleteIcon);
+            galleryContent.appendChild(div);
         });
     }
 
@@ -81,6 +123,22 @@ document.addEventListener('DOMContentLoaded', () => {
             filterAppartements(category);
         }
     });
+
+    // Fonction pour supprimer un appartement
+    function deleteAppartement(id) {
+        fetch(`http://localhost:5678/api/works/${id}`, {
+            method: 'DELETE',
+        }).then(response => {
+            if (response.ok) {
+                // Supprime l'élément du DOM
+                document.querySelectorAll(`[data-id="${id}"]`).forEach(element => element.remove());
+            } else {
+                console.error('Erreur lors de la suppression de l\'appartement');
+            }
+        }).catch(error => {
+            console.error('Erreur lors de la requête de suppression:', error);
+        });
+    }
 
     // Appelle la fonction pour récupérer et afficher les appartements au chargement de la page
     fetchAppartements();

@@ -307,10 +307,10 @@ footer nav ul {
 .modal-content {
     background-color: #fefefe;
     margin: 5% auto; /* 5% du haut de la page pour le centrer verticalement */
-    padding: 20px;
+    padding: 40px;
     border: 1px solid #888;
     width: 40%; /* Largeur de la modale */
-    border-radius: 10px; /* Bords arrondis */
+    border-radius: 30px; /* Bords arrondis */
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); /* Ombre */
     text-align: center;
 }
@@ -421,3 +421,120 @@ button:hover {
     text-decoration: underline;
     margin-top: 10px;
 }
+
+#gallery-view {
+	margin: 20px;
+}
+
+
+/* Styles pour les images dans la galerie modale */
+.gallery-content {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-gap: 10px; /* Augmentez l'espacement entre les images si nécessaire */
+    padding: 40px;
+	padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.gallery-content figure {
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+
+.gallery-content img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.gallery-content figcaption {
+    display: none; /* Masquer les légendes */
+}
+
+/* Icône de suppression */
+.delete-icon {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    background-color: black;
+    color: white;
+    width: 15px;
+    height: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.delete-icon i {
+    pointer-events: none; /* Empêcher les événements de pointer de se propager à l'icône */
+    font-size: 9px;
+}
+
+/* Augmenter les marges sur les côtés */
+.modal-content {
+    margin: 10px auto;
+    width: 50%; /* Réduit la largeur de la modale */
+    max-width: 450px; /* Limite la largeur maximale */
+    max-height: 90vh; /* Limite la hauteur maximale */
+    padding: 20px; /* Ajouter un padding pour éviter que le contenu ne touche les bords */
+    background-color: #fff; /* Assurez-vous que la couleur de fond est correcte */
+    border-radius: 10px; /* Ajoutez des coins arrondis pour un meilleur design */
+}
+
+.modal-content h3 {
+    text-align: center;
+    font-size: 1.5em;
+    margin-bottom: 20px;
+}
+
+/* Barre grise au-dessus du bouton "Ajouter une photo" */
+.divider {
+    height: 1px;
+    background-color: #ccc;
+    margin: 20px ;
+}
+
+/* Bouton "Ajouter une photo" */
+#add-photo-btn {
+    display: block;
+    margin: 20px auto;
+    padding: 6px 30px;
+    background-color: #1D6154;
+    color: white;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+
+}
+
+/* Styles pour la barre de mode édition */
+.edit-mode-bar {
+    background-color: #000;
+    color: #fff;
+    text-align: center;
+    padding: 0;
+    font-family: 'Syne', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.edit-mode-bar button {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 14px;
+    cursor: pointer;
+    align-items: center;
+    gap: 10px;
+	margin: 0;
+}
+
+
+
+
