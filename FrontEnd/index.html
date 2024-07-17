@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="./assets/style.css">
 </head>
 <body>
-	<div class="edit-mode-bar" id="edit-mode-bar">
+    <div class="edit-mode-bar" id="edit-mode-bar">
         <button id="manage-works-btn"><i class="fa-regular fa-pen-to-square"></i> Mode édition</button>
     </div>
     <header>
@@ -39,8 +39,11 @@
             </article>
         </section>
 
-            <h2>Mes Projets</h2>
-			<button id="manage-works-btn"><i class="fa-regular fa-pen-to-square"></i> Modifier</button>
+        <section id="portfolio">
+            <div class="edit-mode-bar">
+                <h2>Mes Projets</h2>
+                <button id="manage-works-btn"><i class="fa-regular fa-pen-to-square"></i> Modifier</button>
+            </div>
             <!-- Modale de gestion des travaux -->
             <div id="modal" class="modal">
                 <div class="modal-content">
@@ -50,9 +53,8 @@
                         <!-- Contenu de la galerie photo -->
                         <div class="gallery-content">
                             <!-- Images et contenu de la galerie -->
-
                         </div>
-						<div class="divider"></div>
+                        <div class="divider"></div>
                         <button id="add-photo-btn">Ajouter une photo</button>
                     </div>
                     <div id="add-photo-view">
@@ -60,15 +62,14 @@
                             <button id="back-to-gallery-btn" class="fa-solid fa-arrow-left"></button>
                             <p>Ajout photo</p>
                         </div>
+                        <div class="add-photo-button">
+                            <img src="" alt="image upload" id="image-reader">
+                            <i class="fa-regular fa-image" id="default-image"></i>
+                            <label for="add-photo" id="add-photo-label">+ Ajouter photo</label>
+                            <input type="file" name="upload-file" id="add-photo" accept="image/*">
+                            <p>jpg, png : 4mo max</p>
+                        </div>
                         <form id="add-photo-form">
-                            <div class="upload-section">
-                                <label for="photo-file" class="upload-label">
-                                    <i class="fa-regular fa-image"></i>
-                                    <span>+ Ajouter photo</span>
-                                    <small>jpg, png : 4mo max</small>
-                                </label>
-                                <input type="file" id="photo-file" name="file" accept="image/*" required>
-                            </div>
                             <label for="photo-title">Titre de la photo:</label>
                             <input type="text" id="photo-title" name="title" required>
                             <label for="photo-category">Catégorie:</label>
@@ -76,7 +77,7 @@
                                 <option value="" disabled selected>Choisir une catégorie</option>
                                 <option value="cat1">Objets</option>
                                 <option value="cat2">Appartements</option>
-                                <option value="cat1">Hôtel & Restaurants</option>
+                                <option value="cat3">Hôtel & Restaurants</option>
                             </select>
                             <button type="submit" class="submit-btn">Valider</button>
                         </form>
@@ -93,6 +94,7 @@
                 <!-- Les éléments récupérés depuis le fichier JSON seront insérés ici -->
             </div>
         </section>
+        
         <section id="contact">
             <h2>Contact</h2>
             <p>Vous avez un projet ? Discutons-en !</p>
