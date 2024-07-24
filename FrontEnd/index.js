@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
             const data = await response.json();
+            console.log('Fetched appartements:', data);
             displayAppartements(data);
             displayAllPhotosInModal(data);
         } catch (error) {
@@ -25,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const div = document.createElement('figure');
             div.className = 'appartement';
             div.dataset.id = appartement.id;
-            div.dataset.category = appartement.category.name.toLowerCase(); 
+            div.dataset.category = appartement.category.name.toLowerCase();
 
             const title = document.createElement('figcaption');
             title.textContent = appartement.title;
@@ -35,12 +36,10 @@ document.addEventListener('DOMContentLoaded', () => {
             img.alt = appartement.title;
 
             const deleteIcon = document.createElement('div');
-            deleteIcon.className = 'delete-icon';
-            deleteIcon.innerHTML = '<i class="fa-regular fa-trash-can"></i>';
+
 
             deleteIcon.addEventListener('click', (event) => {
                 event.stopPropagation();
-                console.log(`Delete icon clicked for ID: ${appartement.id}`);
                 deleteAppartement(appartement.id, div);
             });
 
@@ -74,7 +73,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
             deleteIcon.addEventListener('click', (event) => {
                 event.stopPropagation();
-                console.log(`Delete icon clicked for ID: ${appartement.id}`);
                 deleteAppartement(appartement.id, div);
             });
 
@@ -85,8 +83,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     async function deleteAppartement(id, element) {
-        console.log(`Attempting to delete ID: ${id}`);
         const authToken = localStorage.getItem('authToken');
+        if (!authToken) {
+            console.error('Token not found. Please log in again.');
+            return;
+        }
+
         try {
             const response = await fetch(`http://localhost:5678/api/works/${id}`, {
                 method: 'DELETE',
@@ -95,7 +97,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
             if (response.ok) {
-                console.log(`Successfully deleted ID: ${id}`);
                 element.remove();
             } else {
                 console.error(`Erreur lors de la suppression de l'appartement, status: ${response.status}`);
@@ -144,9 +145,32 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('add-photo-form').addEventListener('submit', async (event) => {
         event.preventDefault();
 
-        const formData = new FormData(event.target);
+        const imageForm = document.getElementById('add-photo');
+        const titleForm = document.getElementById('photo-title');
+        const categoryForm = document.getElementById('photo-category');
+
+        if (!imageForm || !titleForm || !categoryForm) {
+            console.error('Un ou plusieurs éléments du formulaire sont introuvables');
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append('image', imageForm.files[0], imageForm.files[0].name);
+        formData.append('title', titleForm.value);
+        formData.append('category', categoryForm.value);
+
+        console.log('Form data being sent:', {
+            image: imageForm.files[0],
+            title: titleForm.value,
+            category: categoryForm.value
+        });
+
         const authToken = localStorage.getItem('authToken');
-        console.log('Submitting new photo with form data:', formData);
+        if (!authToken) {
+            alert('Vous devez être connecté pour ajouter une photo.');
+            console.error('Token not found. Please log in again.');
+            return;
+        }
 
         try {
             const response = await fetch('http://localhost:5678/api/works', {
@@ -158,18 +182,18 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
+                throw new Error(`Erreur HTTP ! Statut : ${response.status}`);
             }
 
             const newPhoto = await response.json();
             console.log('New photo added:', newPhoto);
 
-            // Ajoute la nouvelle photo à la galerie principale
+            // Ajouter la nouvelle photo à la galerie principale
             addPhotoToGallery(newPhoto);
-            // Ajoute la nouvelle photo à la modale
+            // Ajouter la nouvelle photo à la modale
             addPhotoToModal(newPhoto);
 
-            // Réinitialise le formulaire
+            // Réinitialiser le formulaire
             event.target.reset();
             // Réinitialiser la prévisualisation de l'image
             document.getElementById('image-reader').style.display = 'none';
@@ -183,10 +207,14 @@ document.addEventListener('DOMContentLoaded', () => {
     function addPhotoToGallery(photo) {
         console.log('Adding photo to gallery:', photo);
         const galerie = document.getElementById('listeFilm');
+        if (!galerie) {
+            console.error('Élément galerie non trouvé');
+            return;
+        }
         const div = document.createElement('figure');
         div.className = 'appartement';
         div.dataset.id = photo.id;
-        div.dataset.category = photo.category.name.toLowerCase();
+        div.dataset.category = photo.category.toLowerCase();
 
         const title = document.createElement('figcaption');
         title.textContent = photo.title;
@@ -201,7 +229,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         deleteIcon.addEventListener('click', (event) => {
             event.stopPropagation();
-            console.log(`Delete icon clicked for ID: ${photo.id}`);
             deleteAppartement(photo.id, div);
         });
 
@@ -209,11 +236,16 @@ document.addEventListener('DOMContentLoaded', () => {
         div.appendChild(title);
         div.appendChild(deleteIcon);
         galerie.appendChild(div);
+        console.log('Photo added to gallery');
     }
 
     function addPhotoToModal(photo) {
         console.log('Adding photo to modal:', photo);
         const galleryContent = document.querySelector('.gallery-content');
+        if (!galleryContent) {
+            console.error('Élément gallery-content non trouvé');
+            return;
+        }
         const div = document.createElement('figure');
         div.className = 'appartement-modal';
         div.dataset.id = photo.id;
@@ -228,13 +260,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
         deleteIcon.addEventListener('click', (event) => {
             event.stopPropagation();
-            console.log(`Delete icon clicked for ID: ${photo.id}`);
             deleteAppartement(photo.id, div);
         });
 
         div.appendChild(img);
         div.appendChild(deleteIcon);
         galleryContent.appendChild(div);
+        console.log('Photo added to modal');
     }
 
     fetchAppartements();
@@ -242,21 +274,28 @@ document.addEventListener('DOMContentLoaded', () => {
     const authLink = document.getElementById('auth-link');
     const editModeBar = document.getElementById('edit-mode-bar');
     const filters = document.getElementById('filters');
-    const authToken = localStorage.getItem('authToken');
+    const storedAuthToken = localStorage.getItem('authToken');
 
-    if (authToken) {
-        authLink.innerHTML = '<a href="#" id="logout-link">logout</a>';
-        editModeBar.style.display = 'block';
-        filters.style.display = 'none';
+    function updateEditModeBar() {
+        const authToken = localStorage.getItem('authToken');
+        if (authToken) {
+            authLink.innerHTML = '<a href="#" id="logout-link">logout</a>';
+            editModeBar.style.display = 'block';
+            filters.style.display = 'none';
 
-        document.getElementById('logout-link').addEventListener('click', (e) => {
-            e.preventDefault();
-            localStorage.removeItem('authToken');
-            window.location.href = 'index.html';
-        });
-    } else {
-        filters.style.display = 'flex';
+            document.getElementById('logout-link').addEventListener('click', (e) => {
+                e.preventDefault();
+                localStorage.removeItem('authToken');
+                window.location.href = 'index.html';
+            });
+        } else {
+            authLink.innerHTML = '<a href="login.html">login</a>';
+            editModeBar.style.display = 'none';
+            filters.style.display = 'flex';
+        }
     }
+
+    updateEditModeBar();
 
     const modal = document.getElementById('modal');
     const manageWorksBtn = document.getElementById('manage-works-btn');

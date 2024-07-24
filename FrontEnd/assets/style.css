@@ -535,6 +535,26 @@ button:hover {
 	margin: 0;
 }
 
+#image-reader {
+    max-width: 30%;
+    max-height: 100%;
+    object-fit: contain; /* Pour s'assurer que l'image garde son ratio */
+    display: block;
+    margin: 0 auto; /* Pour centrer l'image */
+}
 
+#image-preview {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px; /* Hauteur du cadre de prévisualisation */
+    width: 100%; /* Largeur du cadre de prévisualisation */
+    border: 1px solid #ccc; /* Bordure pour mieux voir le cadre */
+    margin-bottom: 10px; /* Espacement en bas du cadre */
+}
+
+#default-image {
+    font-size: 100px; /* Taille de l'icône par défaut */
+}
 
 
