@@ -54,13 +54,7 @@ body {
 	font-size: 14px;
 }
 
-.edit-mode-bar {
-    background-color: #000;
-    color: #fff;
-    text-align: center;
-    padding: 5px;
-    font-family: 'Syne', sans-serif;
-}
+
 
 header {
 	display: flex;
@@ -132,9 +126,18 @@ li:hover {
 }
 #portfolio h2 {
 	text-align: center;
-	margin-bottom: 1em;
+	margin-bottom: -1em;
+}
+nav li a, /* Sélecteur pour les liens dans la barre de navigation */
+#contact a {
+    color: black; /* Couleur par défaut */
+    text-decoration: none; /* Retire le soulignement des liens */
 }
 
+nav li a:hover, /* Style au survol pour les liens de la barre de navigation */
+#contact a:hover {
+    color: #B1663C; /* Marron au survol */
+}
 
 /* Styles pour les boutons de filtre */
 #filters {
@@ -292,7 +295,6 @@ footer nav ul {
 }
 /* Styles pour la modale */
 .modal {
-    display: none; /* Masquer la modale par défaut */
     position: fixed; 
     z-index: 1; 
     left: 0;
@@ -300,20 +302,9 @@ footer nav ul {
     width: 100%; 
     height: 100%; 
     overflow: auto; 
-    background-color: rgb(0,0,0); 
-    background-color: rgba(0,0,0,0.4); /* Fond noir avec transparence */
 }
 
-.modal-content {
-    background-color: #fefefe;
-    margin: 5% auto; /* 5% du haut de la page pour le centrer verticalement */
-    padding: 40px;
-    border: 1px solid #888;
-    width: 40%; /* Largeur de la modale */
-    border-radius: 30px; /* Bords arrondis */
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); /* Ombre */
-    text-align: center;
-}
+
 
 .close-btn {
     color: #aaa;
@@ -335,11 +326,6 @@ footer nav ul {
     justify-content: flex-start;
 }
 
-.back-arrow {
-    font-size: 24px;
-    cursor: pointer;
-    margin-right: 10px;
-}
 
 .upload-section {
     border: 2px dashed #ccc;
@@ -377,15 +363,6 @@ footer nav ul {
     display: none; /* Masquer le champ de fichier réel */
 }
 
-input[type="text"], select {
-    display: block;
-    margin: 10px auto;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    width: 80%;
-}
-
 button {
     margin-top: 20px;
     padding: 10px 20px;
@@ -396,19 +373,8 @@ button {
     cursor: pointer;
 }
 
-button:hover {
-    background-color: #145d3a;
-}
 
-.submit-btn {
-    width: 80%;
-    margin: 20px auto;
-    padding: 10px;
-    border-radius: 25px;
-    background-color: #1D6154;
-    color: white;
-    cursor: pointer;
-}
+
 
 .submit-btn:hover {
     background-color: #145d3a;
@@ -474,21 +440,11 @@ button:hover {
     font-size: 9px;
 }
 
-/* Augmenter les marges sur les côtés */
-.modal-content {
-    margin: 10px auto;
-    width: 50%; /* Réduit la largeur de la modale */
-    max-width: 450px; /* Limite la largeur maximale */
-    max-height: 90vh; /* Limite la hauteur maximale */
-    padding: 20px; /* Ajouter un padding pour éviter que le contenu ne touche les bords */
-    background-color: #fff; /* Assurez-vous que la couleur de fond est correcte */
-    border-radius: 10px; /* Ajoutez des coins arrondis pour un meilleur design */
-}
 
 .modal-content h3 {
     text-align: center;
     font-size: 1.5em;
-    margin-bottom: 20px;
+    margin-bottom: 5px;
 }
 
 /* Barre grise au-dessus du bouton "Ajouter une photo" */
@@ -512,7 +468,7 @@ button:hover {
 }
 
 /* Styles pour la barre de mode édition */
-.edit-mode-bar {
+.edit-mode-barr {
     background-color: #000;
     color: #fff;
     text-align: center;
@@ -524,7 +480,7 @@ button:hover {
 
 }
 
-.edit-mode-bar button {
+.edit-mode-barr button {
     background: none;
     border: none;
     color: #fff;
@@ -534,6 +490,36 @@ button:hover {
     gap: 10px;
 	margin: 0;
 }
+.edit-mode-bar {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: none; /* Retirer le fond noir */
+            padding: 10px 0;
+        }
+
+        /* Style pour le titre */
+        .edit-mode-bar h2 {
+            margin: 0;
+            font-size: 1.5em; /* Taille de la police ajustable */
+            color: #2e6b48; /* Couleur du texte */
+        }
+
+        /* Style pour le bouton modifier */
+        .edit-mode-bar button {
+            display: flex;
+            align-items: center;
+            background: none; /* Retirer le fond */
+            border: none; /* Retirer les bordures */
+            color: black; /* Couleur de l'icône et du texte */
+            font-size: 1em; /* Taille de la police ajustable */
+            cursor: pointer;
+        }
+
+        /* Style pour l'icône dans le bouton */
+        .edit-mode-bar button i {
+            margin-right: 5px; /* Espace entre l'icône et le texte */
+        }
 
 #image-reader {
     max-width: 30%;
@@ -554,7 +540,198 @@ button:hover {
 }
 
 #default-image {
-    font-size: 100px; /* Taille de l'icône par défaut */
+    font-size: 50px; /* Taille de l'icône par défaut */
+
+}
+
+.modal {
+    display: none; /* Cacher par défaut */
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4); /* Fond transparent noir */
 }
 
 
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 1.5em;
+    cursor: pointer;
+}
+
+.modal-header {
+    justify-content: center;
+    margin-bottom: 5px;
+}
+
+.modal-header p {
+    font-size: 1.25em;
+    margin: 0;
+}
+
+.add-photo-container {
+    text-align: center;
+}
+
+
+.add-photo-button img,
+.add-photo-button i {
+    display: block;
+    margin: 0 auto;
+    width: 50px;
+    height: 50px;
+    color: #d1d2de;
+}
+
+#add-photo-label {
+    margin-top: 10px;
+    cursor: pointer;
+    border-radius: 40px;
+    background-color: #d1d2de;
+    color: rgb(3, 76, 137);
+    padding:8px 27px;
+}
+
+#add-photo {
+    display: none;
+}
+
+.add-photo-button p {
+    color:black;
+    margin-top: 5px;
+    font-size: 10px;
+}
+
+#add-photo-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#add-photo-form label {
+    display: block;
+    width: 100%;
+    text-align: left;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+#add-photo-form input{
+    border: none;
+    box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+    width: 95%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 6px;
+}
+#add-photo-form select {
+    border: none;
+    box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 6px;
+}
+
+.divide{
+    height: 1px;
+    background-color: #ccc;
+    margin: 20px 0px; 
+}
+
+.submit-btn {
+    background-color: #888;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    width: 80%;
+    margin: 20px auto;
+}
+
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 1% auto;
+    padding: 7px;
+    border: 1px solid #888;
+    width: 50%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    position: relative;
+}
+
+.add-photo-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100px;
+    cursor: pointer;
+    margin-bottom: 5px; /* Espace en bas pour mieux aérer */
+    background-color: #E8F1F6;
+    padding: 20px;
+}
+
+.add-photo-button img,
+.add-photo-button i {
+    display: block;
+    margin: 0 auto;
+    width: 50px;
+    height: 50px;
+    color: #d1d2de;
+}
+
+#image-reader {
+    width: 100%;
+    height: 32%;
+    object-fit: cover; /* Couvre le conteneur sans déformation */
+    display: none; /* Caché par défaut */
+    position: absolute;
+}
+
+#default-image,
+#add-photo-label,
+.add-photo-button p {
+    display: block; /* Visible par défaut */
+    z-index: 1;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 1.5em;
+    cursor: pointer;
+    z-index: 2; /* Assurez-vous que la croix est toujours visible */
+}
+
+
+.back-arrow {
+    display: flex;
+    margin: 0;
+    padding-left: 0px;
+    MARGIN-TOP: -5px;
+    margin-left: -65px;
+    background: none;
+    border: none;
+    font-size: 1.5em;
+    cursor: pointer;
+    color: #000;
+}
+
+#add-photo-view{
+    display: block;
+    margin: 0 70px;
+}

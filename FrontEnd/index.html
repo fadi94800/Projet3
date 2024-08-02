@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="./assets/style.css">
 </head>
 <body>
-    <div class="edit-mode-bar" id="edit-mode-bar">
+    <div class="edit-mode-barr" id="edit-mode-barr">
         <button id="manage-works-btn"><i class="fa-regular fa-pen-to-square"></i> Mode édition</button>
     </div>
     <header>
@@ -42,7 +42,7 @@
         <section id="portfolio">
             <div class="edit-mode-bar">
                 <h2>Mes Projets</h2>
-                <button id="manage-works-btn"><i class="fa-regular fa-pen-to-square"></i> Modifier</button>
+                <button id="edit-mode-bar"><i class="fa-regular fa-pen-to-square"></i> Modifier</button>
             </div>
             <!-- Modale de gestion des travaux -->
             <div id="modal" class="modal">
@@ -57,10 +57,15 @@
                         <div class="divider"></div>
                         <button id="add-photo-btn">Ajouter une photo</button>
                     </div>
+
                     <div id="add-photo-view">
+                        <button id="back-to-gallery-btn" class="back-arrow">
+                            <i class="fa-solid fa-arrow-left"></i>
+                        </button>
+                        <span class="close-btn">&times;</span>
                         <div class="modal-header">
-                            <button id="back-to-gallery-btn" class="fa-solid fa-arrow-left"></button>
-                            <p>Ajout photo</p>
+                           <h3>Ajout photo</h3>
+                        
                         </div>
                         <div class="add-photo-button">
                             <img src="" alt="image upload" id="image-reader">
@@ -69,16 +74,19 @@
                             <input type="file" name="upload-file" id="add-photo" accept="image/*">
                             <p>jpg, png : 4mo max</p>
                         </div>
+                        <div>
                         <form id="add-photo-form">
-                            <label for="photo-title">Titre de la photo:</label>
+                            <label for="photo-title">Titre</label>
                             <input type="text" id="photo-title" name="title" required>
-                            <label for="photo-category">Catégorie:</label>
+                            <label for="photo-category">Catégorie</label>
                             <select id="photo-category" name="category" required>
                                 <option value="" disabled selected>Choisir une catégorie</option>
                                 <option value="1">Objets</option>
                                 <option value="2">Appartements</option>
                                 <option value="3">Hôtel & Restaurants</option>
                             </select>
+                            </div>
+                            <div class="divide"></div>
                             <button type="submit" class="submit-btn">Valider</button>
                         </form>
                     </div>
