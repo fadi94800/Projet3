@@ -7,7 +7,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
-    <meta name="description" content="">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
     <link rel="stylesheet" href="./assets/style.css">
 </head>
@@ -42,7 +41,7 @@
         <section id="portfolio">
             <div class="edit-mode-bar">
                 <h2>Mes Projets</h2>
-                <button id="edit-mode-bar"><i class="fa-regular fa-pen-to-square"></i> Modifier</button>
+                <button id="edit-button"><i class="fa-regular fa-pen-to-square"></i> Modifier</button>
             </div>
             <!-- Modale de gestion des travaux -->
             <div id="modal" class="modal">
@@ -92,12 +91,7 @@
                     </div>
                 </div>
             </div>
-            <div id="filters">
-                <button class="filter-btn" data-category="all">Tous</button>
-                <button class="filter-btn" data-category="Objets">Objets</button>
-                <button class="filter-btn" data-category="Appartements">Appartements</button>
-                <button class="filter-btn" data-category="Hotels & restaurants">Hôtel & Restaurants</button>
-            </div>
+            
             <div id="listeFilm" class="gallery">
                 <!-- Les éléments récupérés depuis le fichier JSON seront insérés ici -->
             </div>
@@ -125,6 +119,5 @@
         </nav>
     </footer>
     <script src="modal.js"></script>
-    <script src="index.js"></script>
-</body>
+    <script src="index.js" defer></script> 
 </html>

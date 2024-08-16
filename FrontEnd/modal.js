@@ -40,14 +40,19 @@ document.addEventListener('DOMContentLoaded', () => {
         addPhotoView.style.display = 'none';
         galleryView.style.display = 'block';
     });
+    function showModal(modalId) {
+        var modal = document.getElementById(modalId);
+        if (modal) {
+            modal.style.display = 'block';
+        }
+    }
+    
+    function closeModal(modalId) {
+        var modal = document.getElementById(modalId);
+        if (modal) {
+            modal.style.display = 'none';
+        }
+    }
+    
 
-    // Gérer la soumission du formulaire d'ajout de photo
-    const addPhotoForm = document.getElementById('add-photo-form');
-    addPhotoForm.addEventListener('submit', (event) => {
-        event.preventDefault();
-        // Code pour gérer l'ajout de photo...
-        alert('Photo ajoutée avec succès!');
-        addPhotoView.style.display = 'none';
-        galleryView.style.display = 'block';
-    });
 });
